@@ -1,6 +1,5 @@
-print("Accepted Inputs:\nclr to Clear\nFloat or Integer\nOperator\np to Show Current Equation\nq to quit\n")
+print("Accepted Inputs:\nclr to Clear\nFloat or Integer\nOperator\np to Show Current Equation\nq to quit\ni to invert\nn to negate")
 yee = 0  
-equation = []
 def RPN(c,a,b):
   if c == "+":
     return (a+b)
@@ -44,24 +43,23 @@ def isNumF(x):
       return False
 while yee != 1:
   button = (input(""))
-  booton = button
-  if button.isnumeric() or isNumF(button):
-    booton = float(button)
-  if booton == "p":
-    print(equation)
-  elif booton == "q":
-    quit()
-  elif booton == "clr":
-    while len(equation) > 0:
-      equation.pop
-  elif isNum(booton) == "nah" and len(equation) < 2:
-    print("CRITICAL ERROR")
-    quit() 
-  elif isNum(booton) == "nah" and isOptr(booton) == "nah":
-    print("CRITICAL ERROR")
-    quit() 
-  if isNum(booton) == "yah" or isOptr(booton) == "yah":
-    equation.append(booton)
-  if isNum(booton) == "nah" and len(equation) >= 3 and isOptr(booton) == "yah":
-    equation.insert(0, RPN(equation.pop(), equation.pop(0), equation.pop(0)))
-    print(equation[0])
+  inputlist = button.split()
+  equation = []
+  for x in range(0, len(inputlist)):
+    booton = inputlist[x]   
+    if inputlist[x].isnumeric() or isNumF(inputlist[x]):
+      equation.append(float(inputlist[x]))
+    if booton == "p":
+      print(equation)
+    elif booton == "q":
+      quit()
+    elif booton == "i":
+      equation.append(1/(equation.pop()))
+    elif booton == "n":
+      equation.append(-1*equation.pop())
+    elif booton == "clr":
+      while len(equation) > 0:
+        equation.pop()
+    if isOptr(booton) == "yah":
+      equation.append(RPN(booton, equation.pop(), equation.pop()))
+  print(equation[0])
